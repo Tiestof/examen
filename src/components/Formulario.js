@@ -16,18 +16,18 @@ const Formulario = () => {
     e.preventDefault();
     if (validator.allValid()) {
       try {
-        // Crear usuario en Firebase Authentication
+        // Creamos usuario en Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
         const user = userCredential.user;
 
-        // Guardar los datos adicionales en Firestore
+        // Guardarmos los datos adicionales en Firestore
         await addDoc(collection(db, 'usuarios'), {
           uid: user.uid,
           email: user.email,
         });
 
         alert('Usuario creado correctamente y datos almacenados en Firestore');
-        setFormData({ email: '', password: '' }); // Reinicia el formulario
+        setFormData({ email: '', password: '' }); // Reiniciamos el formulario
       } catch (error) {
         console.error('Error al crear usuario:', error);
         alert('Error al crear el usuario. Inténtalo nuevamente.');
